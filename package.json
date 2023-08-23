@@ -1,0 +1,53 @@
+{
+  "name": "weaken-it",
+  "version": "1.0.0",
+  "description": "Minimal utility to weaken any data",
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "main": "./dist/weakenIt.umd.js",
+  "module": "./dist/weakenIt.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/weakenIt.es.js",
+      "require": "./dist/weakenIt.umd.js"
+    }
+  },
+  "scripts": {
+    "build": "vite build",
+    "test": "vitest",
+    "dev": "vite",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs"
+  },
+  "keywords": [
+    "weak data-structures",
+    "weak references",
+    "weak object",
+    "weak array",
+    "weak memo",
+    "memoization",
+    "weak map",
+    "weak array",
+    "weak"
+  ],
+  "author": "Giandomenico Di Salvatore",
+  "license": "MIT",
+  "volta": {
+    "node": "20.5.1",
+    "pnpm": "8.6.12"
+  },
+  "engines": {
+    "node": "20.5.1",
+    "pnpm": "8.6.12"
+  },
+  "devDependencies": {
+    "@vitest/ui": "^0.34.2",
+    "vite": "^4.4.9",
+    "vitepress": "1.0.0-rc.4",
+    "vitest": "^0.34.2",
+    "vue": "^3.3.4"
+  }
+}

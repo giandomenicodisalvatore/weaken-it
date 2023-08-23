@@ -1,0 +1,9 @@
+# let it build!
+node_modules
+dist
+
+# dev only
+*.html
+
+# TODO: vitepress
+docs
