@@ -3,6 +3,7 @@ import { resolve } from 'path'
 
 export default defineConfig({
 	root: './src',
+
 	build: {
 		outDir: '../dist',
 		emptyOutDir: true,
@@ -11,5 +12,9 @@ export default defineConfig({
 			entry: resolve('./src/main.js'),
 			fileName: format => `weakenIt.${format}.js`,
 		},
+	},
+
+	test: {
+		globals: true,
 	},
 })

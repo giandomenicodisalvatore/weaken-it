@@ -1,38 +1,27 @@
 /**
- * 	# WeakSrc
+ * 	WeakStore
  *
- *  * source of all the weakness
- * 	* iterable over known refs
- * 	* exported for reuse
+ *  * stores all the weakness
+ * 	* guarantees contexts expire after refs
  */
-export const WeakSrc = new WeakMap()
+export const WeakStore = new WeakMap()
 
 /**
- * 	# Set key-val once
+ * 	Use a namespaced store
  *
- * 	* works with Map, WeakMap
- * 	* set key-val pairs on maps just once
- * 	* guarantees value reuse from same key in maps
- * 	* returns first value received
- * 	* exported as a courtesy
+ * 	* any namespaced value will never outlive ref
+ * 	* ref must be an instance or a Symbol()
+ * 	* namespace can be any map-key compatible value
+ * 	* reuses same context as much as possible
  */
-export const setMapOnce = (map, key, val) =>
-	(!map?.has(key) ? map?.set(key, val) : map)?.get(key)
+export function weakenIt(ref, namespace, value) {
+	if (!WeakStore.has(ref))
+		// init a new context
+		WeakStore.set(ref, new Map())
 
-/**
- * 	# Returns a weakend value instance
- *
- * 	* any value will never outlive ref
- * 	* it always returns first value
- * 	* namespace maybe any primitive or instance
- * 	* if namespace is an instance, val expires with it
- * 	* one-off usage via nullish ref / namespace
- */
-export const weakenIt = (ref, namespace, value) => {
-	// create weak context for ref
-	const ctx = setMapOnce(WeakSrc, (ref ??= Symbol()), new Map())
-	// create namespace and save value
-	setMapOnce(ctx, (namespace ??= Symbol()), value)
-	// if unknown ref-namespace or expired ref
-	return WeakSrc?.get(ref)?.get(namespace)
+	if (arguments.length === 3)
+		// only set if called with value
+		WeakStore.get(ref).set(namespace, value)
+
+	return WeakStore.get(ref).get(namespace)
 }
