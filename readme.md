@@ -1,7 +1,6 @@
 # weaken-it
 
-Lightweight tree-shakeable javascript utility to "weaken" any data
-
+Lightweight tree-shakeable js WeakMap utilities and related patterns
 
 > \
 > Every weakness contains within itself a strength
@@ -14,21 +13,23 @@ Lightweight tree-shakeable javascript utility to "weaken" any data
 
 ## :man_technologist: Installation
 
+Enjoy tree-shaking Using any bundler
+
 ```bash
 npm i weaken-it
 ```
 
 ## :wrench: How it works
 
-It's a temporary namespaced store guaranteed to be available as long as the referenced object.
+It's a temporary namespaced store guaranteed to be available as long as the referenced instance.
 
 * Creates a WeakMap
-* Ensures any object is stored once
+* Ensures any instance is stored once
 * Saves a new Map once for each object
-* Re-uses it as a namespaced store
+* Re-uses it as a namespace store
 * Sets / gets any key-value for you
-* When reference is lost everything is gc-ed
-* Frees you from memory management
+* When reference is lost everything is gc'ed
+* Freeing you from memory management
 
 ## :thinking: Why
 
@@ -81,32 +82,40 @@ useExtraData()
 
 example = null 
 useExtraData()
-// undefined
+// undefined (gc'ed)
 ```
 
 ## Available exports
 
 ### Core
 
-* WeakStore, stores all contexts
+Source of all the weakness
+
+* wStore, stores all contexts
 * weakenIt, core function to access contexts
 
 ### Shortcuts
 
-* weakArr
-* weakObj
-* weakenedMap
-* weakenedSet
+To save a few key-strokes
+
+* **wMap**, new Map(), iterable instead of new WeakMap
+* **wSet**, new Set(), iterable instead of new WeakSet
+* **wKV**, Object.create(null)
+* **wArr**, []
+* **wObj**, {}
 
 ### Utils
 
-* weakMemo
-* weakCount
+Some of my most recurring related patterns
+
+* **wMemo**, memoized fn
+* **wCount**, global counter
 
 ## TODO
 
-* Import other patterns from my projects
-* Improve minimal docs for each export
-* Tests for consistency
-* Add examples
-* Add jsdoc types
+* Import and consolidate other patterns from my projects
+* Write jsdocs for each export
+
+## Disclaimer
+
+This library is very opinionated, initially it was built for myself, in order to encapsulate, standardize and reuse some recurring code patterns I reach for when I am concerned about memory-leaks.
