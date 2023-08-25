@@ -1,15 +1,18 @@
+// vite entry
+
 export {
 	// core
-	WeakStore,
+	wStore,
 	weakenIt,
 
 	// shortcuts
-	weakArr,
-	weakObj,
-	weakenedMap,
-	weakenedSet,
+	wArr,
+	wObj,
+	wKV,
+	wMap,
+	wSet,
 
 	// utils
-	weakMemo,
-	weakCount,
+	wMemo,
+	wCount,
 } from './lib'

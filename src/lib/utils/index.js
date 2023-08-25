@@ -1,2 +1,3 @@
-export * from './weakCount'
-export * from './weakMemo'
+export * from './shortcuts'
+export * from './wCount'
+export * from './wMemo'

@@ -1,27 +1,49 @@
 /**
- * 	WeakStore
+ * 	Weak store
  *
  *  * stores all the weakness
  * 	* guarantees contexts expire after refs
  */
-export const WeakStore = new WeakMap()
+export const wStore = new WeakMap()
 
 /**
- * 	Use a namespaced store
  *
- * 	* any namespaced value will never outlive ref
- * 	* ref must be an instance or a Symbol()
- * 	* namespace can be any map-key compatible value
- * 	* reuses same context as much as possible
+ * weakenIt - Weak Store with namespaces
+ *
+ * Store/retrieve values based on a given reference and namespace
+ *
+ * @param {Object|Symbol} ref - Reference, must be an instance or a Symbol
+ * @param {Object|Symbol|string} nSpace - Namespace, must be any non-falsy value
+ * @param {any} val - If provided upserts namespace
+ * @returns {any} - The stored value
+ *
+ * @example
+ * // Storing a value in the weakenIt store
+ * const ref = {},
+ * 	namespace = 'example',
+ * 	value = 'Hello World'
+ *
+ * weakenIt(ref, namespace, value)
+ * // upsert value
+ *
+ * weakenIt(ref, namespace)
+ * // => 'Hello World'
+ *
+ * wStore.delete(ref)
+ * // hard reset
+ *
  */
-export function weakenIt(ref, namespace, value) {
-	if (!WeakStore.has(ref))
-		// init a new context
-		WeakStore.set(ref, new Map())
+export function weakenIt(ref, nSpace, val) {
+	let ctx = wStore.get(ref)
 
-	if (arguments.length === 3)
-		// only set if called with value
-		WeakStore.get(ref).set(namespace, value)
+	if (!(ctx instanceof Map))
+		// enforce it's a map
+		wStore.set(ref, (ctx = new Map()))
 
-	return WeakStore.get(ref).get(namespace)
+	if (!!nSpace && arguments.length === 3)
+		// upsert namespace
+		ctx.set(nSpace, val)
+
+	// rely on native js errors
+	return ctx.get(nSpace)
 }

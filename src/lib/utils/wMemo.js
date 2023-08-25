@@ -5,9 +5,9 @@ import { weakenIt } from '..'
  *
  *	* serialize function defaults to JSON.stringify
  *	* memoizes itself for reuse, when possible
- *	*	reset via weakenIt(fn, serialize, null)
+ *	*	reset via wStore.delete(fn)
  */
-export function weakMemo(fn, serialize) {
+export function wMemo(fn, serialize) {
 	// allows reuse and external clearing
 	let memoized = weakenIt(fn, serialize),
 		memory = new Map()
