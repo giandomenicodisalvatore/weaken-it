@@ -1,19 +1,12 @@
 {
   "name": "weaken-it",
   "version": "1.0.0",
-  "description": "Minimal utility to weaken any data",
+  "description": "Lightweight tree-shakeable js utils to \"weaken\" any data",
   "files": [
     "dist"
   ],
   "type": "module",
-  "main": "./dist/weakenIt.umd.js",
-  "module": "./dist/weakenIt.es.js",
-  "exports": {
-    ".": {
-      "import": "./dist/weakenIt.es.js",
-      "require": "./dist/weakenIt.umd.js"
-    }
-  },
+  "main": "./dist/weaken-it.js",
   "scripts": {
     "build": "vite build",
     "test": "vitest",
@@ -44,10 +37,11 @@
     "pnpm": "8.6.12"
   },
   "devDependencies": {
-    "@vitest/ui": "^0.34.2",
+    "@ngneat/falso": "^7.1.0",
+    "@vitest/ui": "^0.34.3",
     "vite": "^4.4.9",
     "vitepress": "1.0.0-rc.4",
-    "vitest": "^0.34.2",
+    "vitest": "^0.34.3",
     "vue": "^3.3.4"
   }
 }

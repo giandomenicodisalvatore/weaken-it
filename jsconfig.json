@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "Node",
+    "esModuleInterop": true,
+    "importHelpers": true,
+    "alwaysStrict": true,
+    "types": [
+      "vitest/importMeta",
+      "vitest/globals"
+    ]
+  },
+}
