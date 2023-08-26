@@ -1,29 +1,29 @@
-import { weakenIt, wStore } from '..'
+import { wCast, wit } from '..'
 
 /**
  *  Set up a counter
  *
  *  * namespace can be any string
- *  * '*' namespace casts dictionary of all counts
- *  * full reset via wStore.delete(wCount)
+ *  * * namespace casts dictionary of counts
+ *  * hard reset: wStore.delete(wCount) or wDel(wCount)
  * 	* updates only if qty is an integer
  * 	* null qty resets single namespace
  */
 export function wCount(nSpace = '*', qty) {
 	if (nSpace === '*')
-		// wildcard, cast dictionary
-		return Object.fromEntries(wStore.get(wCount) ?? [])
+		// wildcard, cast context
+		return wCast(wCount)
 
-	let count = weakenIt(wCount, nSpace)
+	let count = wit(wCount, nSpace)
 
 	if (!Number.isInteger(count) || qty === null)
-		// reset or tampered
+		// init or reset
 		count = 0
 
 	if (Number.isInteger(qty))
-		// should update
+		// update count
 		count += qty
 
 	// upsert
-	return weakenIt(wCount, nSpace, count)
+	return wit(wCount, nSpace, count)
 }

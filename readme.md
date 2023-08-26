@@ -98,11 +98,16 @@ Source of all the weakness
 
 To save a few key-strokes
 
-* **wMap**, new Map(), iterable instead of new WeakMap
-* **wSet**, new Set(), iterable instead of new WeakSet
-* **wKV**, Object.create(null)
-* **wArr**, []
-* **wObj**, {}
+* **wit**, alias to weakenIt
+* **wDel**, hard reset context
+* **wCtx**, gets the entire context
+* **wCast**, casts the context as dictionary
+* **wSure**, upsert if stored is nullish
+* **wMap**, new Map(), dirt-cheap **iterable** WeakMap
+* **wSet**, new Set(), dirt-cheap **iterable** WeakSet
+* **wKV**, creates a Object.create(null)
+* **wArr**, creates []
+* **wObj**, creates {}
 
 ### Utils
 
@@ -114,8 +119,9 @@ Some of my most recurring related patterns
 ## TODO
 
 * Import and consolidate other patterns from my projects
+* Export core function and store only
 * Write jsdocs for each export
 
 ## Disclaimer
 
-This library is very opinionated, initially it was built for myself, in order to encapsulate, standardize and reuse some recurring code patterns I reach for when I am concerned about memory-leaks.
+This library is very opinionated, I built it to encapsulate, standardize and reuse some recurring code patterns I usually reach for when I am concerned about memory-leaks.

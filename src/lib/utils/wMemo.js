@@ -1,19 +1,16 @@
-import { weakenIt } from '..'
+import { wSure } from '..'
 
 /**
  * 	# Memoize a function
  *
  *	* serialize function defaults to JSON.stringify
  *	* memoizes itself for reuse, when possible
- *	*	reset via wStore.delete(fn)
+ *	*	hard reset via wStore.delete(fn) or wDel(fn)
  */
-export function wMemo(fn, serialize) {
-	// allows reuse and external clearing
-	let memoized = weakenIt(fn, serialize),
-		memory = new Map()
-
-	// new closure if not found
-	memoized ??= (...args) => {
+export function wMemo(fn, serialize = JSON.stringify) {
+	const memory = Symbol()
+	// allows closure reuse and external clearing
+	return wSure(fn, serialize, (...args) => {
 		const key = serialize(args)
 
 		if (!memory.has(key))
@@ -21,8 +18,5 @@ export function wMemo(fn, serialize) {
 			memory.set(key, fn.apply(undefined, args))
 
 		return memory.get(key)
-	}
-
-	// save for reuse
-	return weakenIt(fn, serialize, memoized)
+	})
 }

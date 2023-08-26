@@ -1,6 +1,7 @@
 {
   "conventionalCommits.scopes": [
     "core",
-    "docs"
+    "docs",
+    "shortcuts"
   ]
 }

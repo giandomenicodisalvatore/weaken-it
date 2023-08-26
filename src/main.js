@@ -1,11 +1,14 @@
-// vite entry
-
 export {
 	// core
 	wStore,
 	weakenIt,
+	wit,
 
 	// shortcuts
+	wDel,
+	wCtx,
+	wCast,
+	wSure,
 	wArr,
 	wObj,
 	wKV,

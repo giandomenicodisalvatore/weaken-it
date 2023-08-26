@@ -1,16 +1,24 @@
 /**
+ *
  * 	Weak store
  *
- *  * stores all the weakness
- * 	* guarantees contexts expire after refs
+ *  * plain WeakMap, single source of weakness
+ * 	* exposed to the user for reuse/inspection
+ * 	* guarantees contexts expiry after refs
+ *
  */
 export const wStore = new WeakMap()
+
+// alias
+export { weakenIt as wit }
 
 /**
  *
  * weakenIt - Weak Store with namespaces
  *
  * Store/retrieve values based on a given reference and namespace
+ *
+ * @alias wit
  *
  * @param {Object|Symbol} ref - Reference, must be an instance or a Symbol
  * @param {Object|Symbol|string} nSpace - Namespace, must be any non-falsy value
@@ -44,6 +52,6 @@ export function weakenIt(ref, nSpace, val) {
 		// upsert namespace
 		ctx.set(nSpace, val)
 
-	// rely on native js errors
+	// rely on js errors
 	return ctx.get(nSpace)
 }
