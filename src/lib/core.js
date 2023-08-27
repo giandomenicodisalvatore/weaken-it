@@ -1,10 +1,27 @@
 /**
  *
- * 	Weak store
+ * Weak Store
  *
- *  * plain WeakMap, single source of weakness
- * 	* exposed to the user for reuse/inspection
- * 	* guarantees contexts expiry after refs
+ * A plain WeakMap to store all contexts and for the management of weak references.
+ * It guarantees that everything will be eligible for garbage collection once no other references exist.
+ * It is exposed for reusability.
+ *
+ * @example
+ *
+ * import { wStore } from './wStore.js';
+ *
+ * // Setting a weak reference in the store
+ * const obj = {}
+ * wStore.set(obj, 'some-value')
+ *
+ * // Getting a weak reference from the store
+ * const value = wStore.get(obj)
+ *
+ * // Checking if a weak reference exists in the store
+ * const hasReference = wStore.has(obj)
+ *
+ * // Removing a weak reference from the store
+ * wStore.delete(obj)
  *
  */
 export const wStore = new WeakMap()

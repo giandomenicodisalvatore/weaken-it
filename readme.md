@@ -118,10 +118,11 @@ Some of my most recurring related patterns
 
 ## TODO
 
-* Import and consolidate other patterns from my projects
-* Export core function and store only
-* Write jsdocs for each export
+* Import and standardize other patterns from my projects
+* How to offer multiple exports?
+  * core only
+  * functions
 
 ## Disclaimer
 
-This library is very opinionated, I built it to encapsulate, standardize and reuse some recurring code patterns I usually reach for when I am concerned about memory-leaks.
+This library is **very opinionated**, I built it to encapsulate, standardize and reuse some recurring code patterns I usually reach for.
