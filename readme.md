@@ -118,11 +118,9 @@ Some of my most recurring related patterns
 
 ## TODO
 
-* Import and standardize other patterns from my projects
-* How to offer multiple exports?
-  * core only
-  * functions
+* Import and standardize other patterns
+* Documentation
 
 ## Disclaimer
 
-This library is **very opinionated**, I built it to encapsulate, standardize and reuse some recurring code patterns I usually reach for.
+This library is **very opinionated**, it encapsulates and standardizes some recurring code patterns I usually reach for.

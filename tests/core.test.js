@@ -1,4 +1,4 @@
-import { wStore, weakenIt } from '../src/lib'
+import { wStore, weakenIt, wit } from '../src/lib'
 import { rand } from '@ngneat/falso'
 
 const GoodRefs = [
@@ -60,7 +60,7 @@ describe('core functionality', () => {
 			// hard reset
 			wStore.delete(ref)
 			expect(wStore.has(ref)).toBe(false)
-			expect(wStore.get(ref)).toBeUndefined()
+			expect(wStore.get(ref)).toBe(undefined)
 		})
 
 		it('stored data expires after refs', () => {
@@ -71,7 +71,13 @@ describe('core functionality', () => {
 			expect(weakenIt(ref, 'expires')).toBe('with ref')
 
 			ref = null // unreachable
-			expect(wStore.get(ref)).toBeUndefined()
+			expect(wStore.get(ref)).toBe(undefined)
+		})
+	})
+
+	describe('wit', () => {
+		it('aliases weakenIt', () => {
+			expect(wit).toBe(weakenIt)
 		})
 	})
 
@@ -81,7 +87,7 @@ describe('core functionality', () => {
 			goodNS = rand(GoodNSpaces),
 			badNS = rand(BadNSpaces)
 
-		it('param ref must be instance or symbol', () => {
+		it('ref must be instance or symbol', () => {
 			expect(() => weakenIt(goodRef, GoodNSpaces)).not.toThrowError()
 			expect(() => weakenIt(badRef, goodNS)).toThrowError()
 			expect(() => weakenIt()).toThrowError()
@@ -90,28 +96,28 @@ describe('core functionality', () => {
 		it('creates a context for valid refs', () => {
 			let temp = Symbol()
 
-			expect(weakenIt(temp)).toBeUndefined()
+			expect(weakenIt(temp)).toBe(undefined)
 			expect(wStore.has(temp)).toBe(true)
 			expect(wStore.get(temp)).toBeInstanceOf(Map)
 			expect(wStore.has(goodRef)).toBe(true)
 			expect(wStore.get(goodRef)).toBeInstanceOf(Map)
 		})
 
-		it('param nSpace must be truthy', () => {
+		it('nSpace must be truthy', () => {
 			expect(() => weakenIt(goodRef, goodNS)).not.toThrowError()
 			expect(() => weakenIt(badRef, badNS)).toThrowError()
-			expect(weakenIt(goodRef)).toBeUndefined()
+			expect(weakenIt(goodRef)).toBe(undefined)
 		})
 
 		it('reads values from wStore', () => {
 			// set directly
 			wStore.set(goodRef, new Map().set(goodNS, 'it works'))
 			expect(weakenIt(goodRef, goodNS)).toBe('it works')
-			expect(weakenIt(goodRef, 'not set')).toBeUndefined()
+			expect(weakenIt(goodRef, 'not set')).toBe(undefined)
 
 			// set directly
 			wStore.set(goodRef, new Map().set('new ctx', 'cleared'))
-			expect(weakenIt(goodRef, 'not set')).toBeUndefined()
+			expect(weakenIt(goodRef, 'not set')).toBe(undefined)
 			expect(weakenIt(goodRef, 'new ctx')).toBe('cleared')
 		})
 

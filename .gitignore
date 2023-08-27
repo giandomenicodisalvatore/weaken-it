@@ -1,5 +1,6 @@
 # let it build!
 node_modules
+www
 dist
 
 # TODO: vitepress

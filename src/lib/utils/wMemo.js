@@ -1,4 +1,4 @@
-import { wSure } from '..'
+import { wSure, wit } from '..'
 
 /**
  *
@@ -30,21 +30,21 @@ import { wSure } from '..'
  * 	console.log(memoized2(5, 10)) // Time-consuming... 10
  * 	console.log(memoized2(5, 10)) // 10 (cached)
  *
- * 	// clear the cache
- * 	wDel(expensiveFn)
- * 	wStore.delete(expensiveFn)
+ * 	// clear the cache for expensiveFn
+ * 	wDel(expensiveFn) // or wStore.delete(expensiveFn)
  *
  */
 export function wMemo(fn, serialize = JSON.stringify) {
-	const memory = new Map()
-	// reuse closure and allow cache clearing
-	return wSure(fn, serialize, (...args) => {
-		const key = serialize(args)
+	const cache = new Map(),
+		memoized = (...args) => {
+			const key = serialize(args)
 
-		if (!memory.has(key))
-			// only run once
-			memory.set(key, fn.apply(undefined, args))
+			if (!cache.has(key))
+				// store once
+				cache.set(key, fn.apply(undefined, args))
 
-		return memory.get(key)
-	})
+			return cache.get(key)
+		}
+	// init or upsert, clearable
+	return wSure(fn, serialize, memoized)
 }
