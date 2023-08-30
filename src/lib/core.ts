@@ -37,10 +37,10 @@ export { weakenIt as wit }
  *
  * @alias wit
  *
- * @param {Object|Symbol} ref - Reference, must be an instance or a Symbol
- * @param {Object|Symbol|string} nSpace - Namespace, must be any non-falsy value
- * @param {any} val - If provided upserts namespace
- * @returns {any} - The stored value
+ * @param ref - Reference, must be an instance or a Symbol
+ * @param nSpace - Namespace, must be any non-falsy value
+ * @param val - If provided upserts namespace
+ * @returns - The stored value
  *
  * @example
  * // Storing a value in the weakenIt store
@@ -58,7 +58,13 @@ export { weakenIt as wit }
  * // hard reset
  *
  */
-export function weakenIt(ref, nSpace, val) {
+export function weakenIt<R extends RefType, N extends NSpaceType, V>(
+	ref: R,
+	nSpace: N,
+	val?: any,
+): typeof val
+
+export function weakenIt(ref: any, nSpace: any, val: any) {
 	let ctx = wStore.get(ref)
 
 	if (!(ctx instanceof Map))
@@ -72,3 +78,9 @@ export function weakenIt(ref, nSpace, val) {
 	// rely on js errors
 	return ctx.get(nSpace)
 }
+
+export type RefType = object | symbol
+
+export type NSpaceType = RefType | string | number
+
+export type CtxType = Map<NSpaceType, any>

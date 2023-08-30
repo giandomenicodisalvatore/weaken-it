@@ -18,4 +18,4 @@ export {
 	// utils
 	wMemo,
 	wCount,
-} from './lib'
+} from '@lib'

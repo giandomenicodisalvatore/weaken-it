@@ -8,9 +8,9 @@ import { wSure, wit } from '..'
  * 	It caches even itself, to prevent creating additional closures.
  * 	You can manually clear the cache for a specific function by using `wStore.delete(fn)` or `wDel(fn)`.
  *
- * 	@param {Function} fn - The function to be memoized
- * 	@param {Function} [serialize=JSON.stringify] - Receives array of arguments to convert into a unique string.
- * 	@returns {Function} - The memoized version of the function.
+ * 	@param fn - The function to be memoized
+ * 	@param serialize - Receives array of arguments to convert into a unique string.
+ * 	@returns - The memoized version of the function.
  *
  * 	@example
  *
@@ -34,17 +34,21 @@ import { wSure, wit } from '..'
  * 	wDel(expensiveFn) // or wStore.delete(expensiveFn)
  *
  */
-export function wMemo(fn, serialize = JSON.stringify) {
-	const cache = new Map(),
-		memoized = (...args) => {
-			const key = serialize(args)
+export function wMemo<
+	F extends (...args: any[]) => any,
+	S extends (...args: any[]) => string,
+>(fn: F, serialize?: S): typeof fn
 
-			if (!cache.has(key))
-				// store once
-				cache.set(key, fn.apply(undefined, args))
+export function wMemo(fn: any, serialize: any) {
+	const cache = new Map(),
+		memoized = (...args: any[]) => {
+			const key =
+				typeof serialize === 'function' ? serialize(args) : JSON.stringify(args)
+
+			if (!cache.has(key)) cache.set(key, fn.apply(undefined, args))
 
 			return cache.get(key)
 		}
-	// init or upsert, clearable
-	return wSure(fn, serialize, memoized)
+	// init or upsert, but make it clearable
+	return wSure(fn, serialize as object, memoized)
 }
