@@ -13,10 +13,18 @@ Lightweight tree-shakeable js WeakMap utilities and related patterns
 
 ## :man_technologist: Installation
 
-Enjoy tree-shaking Using any bundler
+### Npm
 
 ```bash
 npm i weaken-it
+```
+
+### CDN
+
+```html
+<script type="module">
+const { wit } = await import("https://cdn.jsdelivr.net/npm/weaken-it@latest")
+</script>
 ```
 
 ## :wrench: How it works
@@ -119,6 +127,7 @@ Some of my most recurring related patterns
 ## TODO
 
 * Import and standardize other patterns
+* Randomized and beter-type tests
 * Documentation
 
 ## Disclaimer

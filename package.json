@@ -1,6 +1,6 @@
 {
   "name": "weaken-it",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Lightweight tree-shakeable js WeakMap utilities and related pattern",
   "homepage": "https://github.com/giandomenicodisalvatore/weaken-it",
   "repository": {
@@ -12,6 +12,7 @@
   ],
   "type": "module",
   "main": "./dist/weaken-it.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "build": "vite build",
     "dev": "vite",
@@ -45,11 +46,19 @@
   },
   "devDependencies": {
     "@ngneat/falso": "^7.1.0",
+    "@types/node": "^20.5.7",
     "@vitest/coverage-v8": "^0.34.3",
     "@vitest/ui": "^0.34.3",
+    "prettier": "^3.0.3",
+    "typescript": "^5.2.2",
     "vite": "^4.4.9",
+    "vite-plugin-dts": "^3.5.3",
     "vitepress": "1.0.0-rc.4",
     "vitest": "^0.34.3",
+    "tslib": "^2.6.2",
     "vue": "^3.3.4"
+  },
+  "peerDependencies": {
+    "tslib": "^2.6.2"
   }
 }
