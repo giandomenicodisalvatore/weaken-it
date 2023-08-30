@@ -1,3 +1,6 @@
+// @ts-nocheck
+// TODO: improved types
+
 import {
 	wStore,
 	weakenIt,
@@ -11,9 +14,9 @@ import {
 	wKV,
 	wMap,
 	wSet,
-} from '../../src/lib'
+} from '@lib'
 
-const mockLib = await import('../../src/lib'),
+const mockLib = await import('@lib'),
 	witSpy = vi.spyOn(mockLib, 'wit'),
 	examined = Symbol(),
 	ignored = Symbol()

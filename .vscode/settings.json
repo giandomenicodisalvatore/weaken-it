@@ -3,6 +3,7 @@
     "core",
     "docs",
     "shortcuts",
-    "utils"
+    "utils",
+    "types"
   ]
 }

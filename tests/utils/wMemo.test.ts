@@ -1,4 +1,4 @@
-import { wMemo, wDel } from '../../src/lib'
+import { wMemo, wDel } from '@lib'
 
 let expensiveCompute = vi.fn().mockImplementation((...num) => {
 		return Math.max(...num)

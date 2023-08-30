@@ -1,4 +1,7 @@
-import { wStore, wCount, wDel } from '../../src/lib'
+// @ts-nocheck
+// TODO: improved types
+
+import { wStore, wCount, wDel } from '@lib'
 import { randNumber } from '@ngneat/falso'
 
 describe('wCount', () => {
@@ -74,7 +77,7 @@ describe('wCount', () => {
 			expect(wCount()).toEqual(
 				Object.keys(counts).reduce((obj, key) => {
 					return Object.assign(obj, { [key]: 0 }) // all zero
-				}, {})
+				}, {}),
 			)
 		})
 

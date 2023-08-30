@@ -1,4 +1,4 @@
-import { wStore, weakenIt, wit } from '../src/lib'
+import { wStore, weakenIt, wit } from '@lib'
 import { rand } from '@ngneat/falso'
 
 const GoodRefs = [
