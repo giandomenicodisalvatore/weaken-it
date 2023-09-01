@@ -1,6 +1,3 @@
-// @ts-nocheck
-// TODO: improved types
-
 import {
 	wStore,
 	weakenIt,
@@ -16,12 +13,14 @@ import {
 	wSet,
 } from '@lib'
 
-const mockLib = await import('@lib'),
-	witSpy = vi.spyOn(mockLib, 'wit'),
-	examined = Symbol(),
-	ignored = Symbol()
+describe('shortcuts', async () => {
+	const mockLib = await import('@lib'),
+		witSpy = vi.spyOn(mockLib, 'wit'),
+		// @ts-expect-error: enforce usage as weakmap key
+		examined = Symbol() as object,
+		// @ts-expect-error: enforce usage as weakmap key
+		ignored = Symbol() as object
 
-describe('shortcuts', () => {
 	beforeEach(() => {
 		wit(examined, 'examined', 'stored')
 		wit(ignored, 'ignored', 'stored')
@@ -57,7 +56,7 @@ describe('shortcuts', () => {
 		it('gets ctx directly from wStore', () => {
 			const spy = vi.spyOn(wStore, 'get')
 			expect(wCtx(examined)).toBe(wStore.get(examined))
-			expect(spy).toHaveBeenCalled(2)
+			expect(spy).toHaveBeenCalledTimes(2)
 		})
 
 		it('gets the ctx associated to ref', () => {
@@ -101,10 +100,12 @@ describe('shortcuts', () => {
 	})
 
 	describe('wSure', () => {
-		const oneOffArgs = [Symbol(), 'calls', 2]
+		// @ts-expect-error: enforce usage as weakmap key
+		const oneOffArgs = [Symbol() as object, 'calls', 2]
 
 		it('reuses weakenIt under the hood', async () => {
-			expect(wStore.get(oneOffArgs.at(0))).toBe(undefined)
+			expect(wStore.get(oneOffArgs.at(0) as object)).toBe(undefined)
+			// @ts-expect-error: enforce usage as weakmap key
 			expect(wSure(...oneOffArgs)).toBe(oneOffArgs.at(-1))
 
 			expect(witSpy).toHaveBeenCalledTimes(2)
@@ -115,16 +116,21 @@ describe('shortcuts', () => {
 
 		it('preserves non-nullish values', () => {
 			// not nullish anymore
+			// @ts-expect-error: enforce usage as weakmap key
 			expect(wSure(...oneOffArgs.toSpliced(-1, 1, 'changed')))
-				.itself.toBe(oneOffArgs.at(-1))
-				.and.not.toBe('changed')
+				.to.eq(oneOffArgs.at(-1))
+				.and.not.to.eq('changed')
 
 			expect(witSpy).toHaveBeenCalledWith(...oneOffArgs.slice(0, -1))
 			expect(witSpy).toHaveReturnedWith(oneOffArgs.at(-1))
 		})
 
 		it('only upserts on nullish values', () => {
-			const shouldUpsert = wSure(oneOffArgs.at(0), 'non-existent', 'upserted')
+			const shouldUpsert = wSure(
+				oneOffArgs.at(0) as object,
+				'non-existent',
+				'upserted',
+			)
 			expect(shouldUpsert).toBe('upserted')
 
 			expect(witSpy).toHaveBeenCalledTimes(2)

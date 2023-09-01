@@ -1,6 +1,3 @@
-// @ts-nocheck
-// TODO: improved types
-
 import { wStore, wCount, wDel } from '@lib'
 import { randNumber } from '@ngneat/falso'
 
@@ -25,7 +22,7 @@ describe('wCount', () => {
 	})
 
 	it('only works with integers', () => {
-		const float = Math.random().toPrecision(3),
+		const float = Number(Math.random().toPrecision(3)),
 			example = randNumber({ min: 1, max: 10 })
 
 		expect(wCount('float', float)).toBe(0)
@@ -60,15 +57,16 @@ describe('wCount', () => {
 
 	describe('hard reset all counts with wDel', () => {
 		const counts = ['a', 'b', 'c'].reduce((obj, prop) => {
-			obj[prop] = Number(randNumber({ min: -5, max: 5 }))
+			// @ts-expect-error: implicit any => just do it!
+			obj[prop] = 0 + randNumber({ min: -10, max: 10 }) - 0
 			return obj
 		}, {})
 
 		it('resets to zero single namespaces', () => {
 			for (const [nSPace, val] of Object.entries(counts))
-				expect(wCount(nSPace, val)).toBe(val) // upsert
+				expect(wCount(nSPace, val as number)).toBe(val as number) // upsert
 
-			wDel(wCount)
+			wDel(wCount) // hard reset
 
 			for (const [nSPace, _] of Object.entries(counts))
 				expect(wCount(nSPace)).toBe(0) // now reads zero

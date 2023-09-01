@@ -1,10 +1,12 @@
 import { wMemo, wDel } from '@lib'
 
-let expensiveCompute = vi.fn().mockImplementation((...num) => {
+let expensiveCompute = vi.fn().mockImplementation((...num: number[]) => {
 		return Math.max(...num)
 	}),
-	joinX = vi.fn().mockImplementation((...args) => args.concat('X').join('')),
-	customSerialize = args => args.join('+'),
+	joinX = vi
+		.fn()
+		.mockImplementation((...args: any[]) => args.concat('X').join('')),
+	customSerialize = (args: any[]) => args.join('+'),
 	memoA = wMemo(expensiveCompute),
 	memoB = wMemo(expensiveCompute, customSerialize),
 	memoX = wMemo(joinX)
