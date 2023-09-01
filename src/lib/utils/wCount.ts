@@ -33,9 +33,9 @@ import { wCast, wit } from '@lib'
  *	wDel(wCount)
  *
  */
-export function wCount(nSpace: NSpaceType, qty: number | null): number
+export function wCount(nSpace: NSpaceType, qty?: number | null): number
 
-export function wCount(nSpace: '*'): { [k: string | symbol]: any }
+export function wCount(nSpace?: '*'): { [k: string | symbol]: any }
 
 export function wCount(nSpace: any = '*', qty?: any) {
 	if (nSpace === '*')
