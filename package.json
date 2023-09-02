@@ -14,6 +14,7 @@
   "main": "./dist/weaken-it.js",
   "types": "./dist/index.d.ts",
   "scripts": {
+    "www": "vite preview --outDir=www",
     "build": "vite build",
     "dev": "vite",
     "test": "vitest",
@@ -38,24 +39,24 @@
   "license": "MIT",
   "volta": {
     "node": "20.5.1",
-    "pnpm": "8.7.0"
+    "pnpm": "8.7.1"
   },
   "engines": {
     "node": "20.5.1",
-    "pnpm": "8.7.0"
+    "pnpm": "8.7.1"
   },
   "devDependencies": {
     "@ngneat/falso": "^7.1.0",
-    "@types/node": "^20.5.7",
+    "@types/node": "^20.5.8",
     "@vitest/coverage-v8": "^0.34.3",
     "@vitest/ui": "^0.34.3",
     "prettier": "^3.0.3",
+    "tslib": "^2.6.2",
     "typescript": "^5.2.2",
     "vite": "^4.4.9",
     "vite-plugin-dts": "^3.5.3",
     "vitepress": "1.0.0-rc.4",
     "vitest": "^0.34.3",
-    "tslib": "^2.6.2",
     "vue": "^3.3.4"
   },
   "peerDependencies": {

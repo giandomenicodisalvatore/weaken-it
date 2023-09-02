@@ -21,7 +21,6 @@ export default defineConfig({
 	build: {
 		outDir: './dist',
 		emptyOutDir: true,
-		sourcemap: true,
 
 		lib: {
 			entry: resolve('./src/main.ts'),
@@ -43,7 +42,7 @@ export default defineConfig({
 
 		coverage: {
 			reporter: ['html', 'json', 'text'],
-			reportsDirectory: './www/tests/coverage',
+			reportsDirectory: './www/coverage',
 			enabled: true, // only prod
 			provider: 'v8',
 		},
