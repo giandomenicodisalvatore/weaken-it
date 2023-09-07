@@ -2,6 +2,7 @@
 
 import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
+import PKG from './package.json'
 import { resolve } from 'path'
 
 export default defineConfig({
@@ -19,8 +20,9 @@ export default defineConfig({
 	],
 
 	build: {
-		outDir: './dist',
-		emptyOutDir: true,
+		rollupOptions: {
+			external: Object.keys(PKG.peerDependencies),
+		},
 
 		lib: {
 			entry: resolve('./src/main.ts'),

@@ -5,6 +5,7 @@
     "strict": true,
     "importHelpers": true,
     "alwaysStrict": true,
+    "incremental": true,
     "types": [
       "vitest/importMeta",
       "vitest/globals"
