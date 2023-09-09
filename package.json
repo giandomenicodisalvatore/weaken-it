@@ -1,18 +1,26 @@
 {
   "name": "weaken-it",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "WeakMap utility functions and related patterns",
   "homepage": "https://github.com/giandomenicodisalvatore/weaken-it",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/giandomenicodisalvatore/weaken-it"
   },
+  "type": "module",
+  "types": "./dist/main.d.ts",
+  "main": "./dist/main.umd.js",
+  "module": "./dist/main.es.js",
   "files": [
     "dist"
   ],
-  "type": "module",
-  "main": "./dist/weaken-it.js",
-  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/main.d.ts",
+      "import": "./dist/main.es.js",
+      "require": "./dist/main.umd.cjs"
+    }
+  },
   "scripts": {
     "www": "vite preview --outDir=www",
     "build": "vite build",

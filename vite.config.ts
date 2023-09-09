@@ -15,7 +15,6 @@ export default defineConfig({
 	plugins: [
 		dts({
 			entryRoot: './src',
-			insertTypesEntry: true,
 		}),
 	],
 
@@ -25,9 +24,9 @@ export default defineConfig({
 		},
 
 		lib: {
+			fileName: (fmt, name) => [name, fmt, 'js'].join('.'),
 			entry: resolve('./src/main.ts'),
-			formats: ['es'],
-			name: 'weakenIt',
+			name: 'WeakenIt',
 		},
 	},
 
