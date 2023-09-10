@@ -34,7 +34,7 @@ import { wSure, wit } from '..'
  * 	wDel(expensiveFn) // or wStore.delete(expensiveFn)
  *
  */
-export function wMemo<M extends Memoizable>(fn: M, serialize?: M): typeof fn
+export function wMemo(fn: MemoizableFn, serialize?: SerializeFn): typeof fn
 
 export function wMemo(fn: any, serialize: any = JSON.stringify) {
 	const cache = new Map(),
@@ -49,4 +49,5 @@ export function wMemo(fn: any, serialize: any = JSON.stringify) {
 	return wSure(fn, serialize as object, memoized)
 }
 
-type Memoizable = Function | ((...args: any[]) => string)
+type MemoizableFn = Function | ((...args: any[]) => any)
+type SerializeFn = Function | ((...args: any[]) => string)
