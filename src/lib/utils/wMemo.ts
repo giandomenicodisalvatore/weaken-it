@@ -1,4 +1,4 @@
-import { wSure, wit } from '..'
+import { wSure } from '..'
 
 /**
  *
@@ -34,7 +34,10 @@ import { wSure, wit } from '..'
  * 	wDel(expensiveFn) // or wStore.delete(expensiveFn)
  *
  */
-export function wMemo(fn: MemoizableFn, serialize?: SerializeFn): typeof fn
+export function wMemo<F extends MemoizableFn, S extends SerializeFn>(
+	fn: F,
+	serialize?: S,
+): typeof fn
 
 export function wMemo(fn: any, serialize: any = JSON.stringify) {
 	const cache = new Map(),
