@@ -5,6 +5,7 @@
     "shortcuts",
     "utils",
     "types",
-    "dist"
+    "dist",
+    "dev"
   ]
 }
